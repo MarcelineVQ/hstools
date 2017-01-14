@@ -1,0 +1,74 @@
+i want a tool that reads the imports in a module/project and tells you what packages it's using
+i want a tool that loads an lpaste into your favorite editor
+i want a tool that combines these two
+
+
+
+<johnw> for library authors, there is still some boilerplate, but TH can eliminate that too
+* tom7942 has quit (Quit: Leaving.)
+<johnw> actually, there's a library idea, if it has been done
+<Philippa> eh. I'm inclined to agree with Conor McBride's agitation there? And I'm normally library author often /enough/ to get bitten
+<johnw> given a functor, auto-generate its Free type and all the smart constructors and pattern synonyms needed
+<maerwald> pattern synonyms still suffer from the exhaustiveness check no? and TH is simply not typsafe
+* chris___ has quit (Ping timeout: 260 seconds)
+<johnw> no, but what TH generates still must type check
+* NeverDie has quit (Quit: http://radiux.io/)
+
+
+tool to make a haskell program preallocate a specific ammount of memory to run in and die if it goes over it.
+
+
+investigate what useful information .hi files contain
+
+a tool for listing hacakge packages by modulename
+given Data.Digest I want every package that provides something in that namespace, Data.Digest.CRC etc
+
+tool to dump all the non-shadowed toplevel defintions you've made in ghci to a module file, and dumped shadowed ones in use under a relevant where
+e.g.: foo = 1, x = foo, foo = 3
+should give you module GHCIDumpNumber where foo = 3, x = foo where foo = 1
+
+
+tool to tell you the simpl core of a specific identifier of a module
+
+
+<dfeuer> bgamari: was #11564 merged into 8.0.1, or is it still waiting for 8.0.2?
+<phaskell> #11564: Possible overzealous unfolding - https://ghc.haskell.org/trac/ghc/ticket/11564
+<bgamari> dfeuer, it was merged
+<bgamari> I've left a comment to clarify
+<bgamari> oh dear, sorry, misread your question
+<bgamari> it was merged into 8.0.2
+<dfeuer> OK. I just want to make sure I'm not poring over the wrong core dump.
+<bgamari> the Milestone field is the first release in which the fix is present
+<dfeuer> I *really* want a tool that can compare core dumps modulo renaming; do you have one?
+<bgamari> as do I
+<bgamari> sadly I don't
+<dfeuer> :/
+<bgamari> dfeuer, you know about -dsuppress-uniques, yes?
+<MarcelineVQ> ddump-simple dumps?
+<bgamari> that gets your part of the way there
+<dfeuer> Yes, but I forgot it.
+<bgamari> but still the situation isn't great
+<dfeuer> (because using it for *reading* core, rather than *comparing* it, is horribly confusing)
+<MarcelineVQ> what sort of comparison features would you want?
+<dfeuer> Do you have particular diff command-line options you tend to use?
+<bgamari> In the past I've considered just dumping the coresyn binary encoding to a file
+<bgamari> and writing a tool to slurp it up and allow me to poke at it
+<bgamari> but it didn't seem worthwhile
+<RyanGlScott> -ddump-simpl -dsupress-idinfo  -dsuppress-coercions -dsuppress-type-applications  -dsuppress-uniques -dsuppress-module-prefixes strips away a lot of baloney
+<bgamari> dfeuer, I typically use meld for small-ish files
+<dfeuer> OK.
+<bgamari> for larger files I either use diff
+<bgamari> or I have a script which generates html diffs which are arguably a bit more readable
+<bgamari> but no options in particular
+<dfeuer> MarcelineVQ: basically, if the only thing that changed was a variable name, I *don't care*.
+<MarcelineVQ> and it'd be like diff otherwise?
+<dfeuer> Pretty much, I guess.
+<MarcelineVQ> sorry I'd have better questions but comparison-wise I've only just barely used diff, due to git mostly :>
+<MarcelineVQ> But I am interested in tooling
+<dfeuer> MarcelineVQ: I guess what I *really* should do is use the GHC API and compare ASTs in some fashion. But I don't know how to use the GHC API yet, and I don't think anyone knows quite how to diff AST representations.
+<dfeuer> But it would probably be easier to do that than to try to parse the dump.
+<dfeuer> bgamari: it looks like the pretty printing for case expressions has changed! UGH!
+
+
+arbitrary instances for GHC api as a method for arbiutrary source code generation for testing?
+

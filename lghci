@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Loads lpastes into ghci in the form of:
+# lghci http://lpaste.net/raw/351222 --package linear --package kdt
+
+curl -s $1 > /tmp/lghci.tmp.hs && stack exec ${@:2} -- ghci /tmp/lghci.tmp.hs 
